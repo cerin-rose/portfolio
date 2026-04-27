@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerin Rose Chelladurai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --fg: #f0f0f0;
+      --muted: #555;
+      --border: #222;
+      --font: 'JetBrains Mono', 'Cascadia Code', 'Fira Mono', 'Courier New', Courier, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      align-items: center;
+      padding: 1.1rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.94);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    nav .logo {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      z-index: 201;
+    }
+    nav .logo span { color: var(--fg); }
+
+    nav ul {
+      list-style: none;
+      display: -webkit-flex;
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      -webkit-transition: color 0.2s;
+      transition: color 0.2s;
+      display: inline-block;
+      min-height: 28px;
+      line-height: 28px;
+    }
+    nav ul a:hover { color: var(--fg); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.3rem;
+      z-index: 201;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--fg);
+      -webkit-transition: transform 0.25s, opacity 0.25s;
+      transition: transform 0.25s, opacity 0.25s;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { -webkit-transform: translateY(6px) rotate(45deg); transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { -webkit-transform: translateY(-6px) rotate(-45deg); transform: translateY(-6px) rotate(-45deg); }
+
+    /* ── SECTIONS ── */
+    section {
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 8rem 3rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .label::before { content: '// '; }
+
+    /* ── HERO ── */
+    #hero {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-justify-content: center;
+      justify-content: center;
+      padding-top: 5rem;
+    }
+
+    .hero-prompt { font-size: 12px; color: var(--muted); margin-bottom: 1.4rem; }
+
+    .hero-name {
+      font-size: clamp(1.9rem, 6vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      word-break: break-word;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 0.8rem;
+      line-height: 1.8;
+    }
+
+    .hero-meta {
+      font-size: 11px;
+      color: #444;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-meta a { color: #444; text-decoration: none; -webkit-transition: color 0.2s; transition: color 0.2s; }
+    .hero-meta a:hover { color: var(--muted); }
+    .hero-meta span { margin: 0 0.5rem; }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 0.9em;
+      background: var(--fg);
+      vertical-align: text-bottom;
+      -webkit-animation: blink 1s step-end infinite;
+      animation: blink 1s step-end infinite;
+    }
+    @-webkit-keyframes blink { 50% { opacity: 0; } }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-links {
+      display: -webkit-flex;
+      display: flex;
+      gap: 1rem;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      font-family: var(--font);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      padding: 0.75rem 1.4rem;
+      min-height: 44px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-transition: background 0.2s, color 0.2s, border-color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .btn:hover, .btn:focus-visible { background: var(--fg); color: var(--bg); border-color: var(--fg); outline: none; }
+    .btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .btn.primary:hover, .btn.primary:focus-visible { background: transparent; color: var(--fg); outline: none; }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: -webkit-flex;
+      display: flex;
+      gap: 3rem;
+      margin-top: 1rem;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+    .about-text { -webkit-flex: 1 1 300px; flex: 1 1 300px; }
+    .about-stack { -webkit-flex: 1 1 220px; flex: 1 1 220px; }
+
+    .about-text p { color: #bbb; margin-bottom: 1rem; font-size: 13px; }
+
+    .about-stack h4 {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      margin-top: 1.4rem;
+    }
+    .about-stack h4:first-child { margin-top: 0; }
+
+    .tags {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .tag {
+      font-size: 10px;
+      padding: 0.28rem 0.65rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { margin-top: 1rem; }
+    .exp-item {
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-top {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.3rem;
+    }
+    .exp-role { font-size: 14px; font-weight: 500; }
+    .exp-date { font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .exp-org { font-size: 12px; color: var(--muted); margin-bottom: 0.9rem; }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      font-size: 12px;
+      color: #888;
+      padding: 0.2rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.75;
+    }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: #333; }
+
+    /* ── PROJECTS ── */
+    .projects-grid { margin-top: 1rem; border: 1px solid var(--border); }
+    .project-card {
+      padding: 1.8rem;
+      border-bottom: 1px solid var(--border);
+      -webkit-transition: background 0.2s;
+      transition: background 0.2s;
+    }
+    .project-card:last-child { border-bottom: none; }
+    .project-card:hover { background: #111; }
+
+    .project-top {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .project-name { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+    .project-stack { font-size: 11px; color: var(--muted); margin-bottom: 0.8rem; }
+
+    .project-bullets { list-style: none; margin-bottom: 1rem; }
+    .project-bullets li {
+      font-size: 12px;
+      color: #888;
+      padding: 0.15rem 0 0.15rem 1.2rem;
+      position: relative;
+      line-height: 1.75;
+    }
+    .project-bullets li::before { content: '—'; position: absolute; left: 0; color: #333; }
+
+    .project-tags {
+      display: -webkit-flex;
+      display: flex;
+      gap: 0.4rem;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+    .project-tag {
+      font-size: 10px;
+      padding: 0.25rem 0.55rem;
+      border: 1px solid #222;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESUME ── */
+    #resume { min-height: auto; padding-bottom: 6rem; }
+
+    .resume-block { margin-bottom: 2.5rem; }
+    .resume-block h3 {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resume-item {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #111;
+      font-size: 13px;
+    }
+    .resume-item:last-child { border-bottom: none; }
+    .resume-item .role { color: var(--fg); }
+    .resume-item .org { color: var(--muted); font-size: 12px; margin-top: 0.2rem; }
+    .resume-item .gpa { color: #444; font-size: 11px; margin-top: 0.15rem; }
+    .resume-item .date { color: var(--muted); font-size: 11px; white-space: nowrap; }
+
+    .resume-dl { margin-top: 2rem; display: -webkit-flex; display: flex; gap: 1rem; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; -webkit-transition: color 0.2s; transition: color 0.2s; }
+    footer a:hover { color: var(--fg); }
+
+    .divider { height: 1px; background: var(--border); max-width: 900px; margin: 0 auto; }
+
+    /* ── TABLET ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 2rem; }
+      section { padding: 7.5rem 2rem 4rem; max-width: 100%; }
+      footer { padding: 2rem; max-width: 100%; }
+      .divider { max-width: 100%; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+
+      .nav-toggle { display: -webkit-flex; display: flex; }
+
+      nav ul {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--bg);
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        gap: 2.5rem;
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+        -webkit-transition: transform 0.3s ease;
+        transition: transform 0.3s ease;
+        z-index: 200;
+      }
+      nav ul.open { -webkit-transform: translateX(0); transform: translateX(0); }
+      nav ul a { font-size: 15px; letter-spacing: 0.12em; min-height: 44px; line-height: 44px; }
+
+      section { padding: 6.5rem 1.25rem 3rem; }
+
+      .hero-name { font-size: clamp(1.8rem, 9vw, 2.8rem); }
+      .hero-meta { line-height: 2; }
+
+      .exp-top { -webkit-flex-direction: column; flex-direction: column; gap: 0.2rem; }
+      .exp-date { font-size: 11px; }
+
+      .project-card { padding: 1.3rem; }
+
+      .resume-item { -webkit-flex-direction: column; flex-direction: column; gap: 0.2rem; }
+
+      footer { -webkit-flex-direction: column; flex-direction: column; text-align: center; padding: 1.5rem 1.25rem; }
+    }
+
+    /* ── VERY SMALL (≤ 375px) ── */
+    @media (max-width: 375px) {
+      .hero-name { font-size: clamp(1.6rem, 10vw, 2.2rem); }
+      .btn { font-size: 11px; padding: 0.7rem 1rem; }
+      .project-card { padding: 1rem; }
+      .exp-item { padding: 1.2rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#hero"><span>cerin</span>.dev</a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="nav-menu">
+      <li><a href="#hero">home</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#resume">resume</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-prompt">$ whoami</div>
+    <h1 class="hero-name">Cerin Rose<br />Chelladurai<span class="cursor"></span></h1>
+    <p class="hero-sub">
+      MS Information Systems @ Binghamton University. Building intelligent systems with ML, LLMs, and data engineering.
+    </p>
+    <p class="hero-meta">
+      Binghamton, NY
+      <span>|</span>
+      <a href="mailto:cchelladurai@binghamton.edu">cchelladurai@binghamton.edu</a>
+      <span>|</span>
+      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      <span>|</span>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <div class="hero-links">
+      <a class="btn primary" href="#projects">view projects</a>
+      <a class="btn" href="#experience">experience</a>
+      <a class="btn" href="mailto:cchelladurai@binghamton.edu">contact</a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="label">about</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm Cerin — an ML and AI engineer focused on building systems that work end-to-end in production. Currently pursuing my MS in Information Systems at Binghamton University (GPA 3.43).
+        </p>
+        <p>
+          I work across the full ML stack: feature engineering, model training and evaluation, LLM integration, retrieval-augmented systems, and deployed dashboards. I care about measurable outcomes, not just working prototypes.
+        </p>
+        <p>
+          Open to roles in AI/ML engineering, data science, and data engineering.
+        </p>
+      </div>
+      <div class="about-stack">
+        <h4>languages</h4>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Java</span>
+          <span class="tag">C++</span>
+          <span class="tag">C</span>
+        </div>
+
+        <h4>AI &amp; ML</h4>
+        <div class="tags">
+          <span class="tag">PyTorch</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">scikit-learn</span>
+          <span class="tag">Hugging Face</span>
+          <span class="tag">FAISS</span>
+          <span class="tag">Whisper</span>
+          <span class="tag">OCR</span>
+          <span class="tag">Claude API</span>
+          <span class="tag">OpenAI API</span>
+        </div>
+
+        <h4>data &amp; backend</h4>
+        <div class="tags">
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Flask</span>
+          <span class="tag">REST APIs</span>
+        </div>
+
+        <h4>tools</h4>
+        <div class="tags">
+          <span class="tag">Streamlit</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Git</span>
+          <span class="tag">Jupyter</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="label">experience</p>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Research Project Assistant</div>
+            <div class="exp-org">The Research Foundation for SUNY — Binghamton, NY</div>
+          </div>
+          <div class="exp-date">May 2025 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Provide technical support to faculty, staff, and students via phone, email, and in-person help desk.</li>
+          <li>Log and track incident records in TeamDynamix ITSM, ensuring accurate documentation across support tickets.</li>
+          <li>Triage and escalate incidents to appropriate ITS teams, reducing resolution time through accurate first-contact diagnosis.</li>
+          <li>Diagnose and resolve technical issues across hardware, software, and network systems.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Machine Learning Intern</div>
+            <div class="exp-org">Dynox Global — Bangalore, India</div>
+          </div>
+          <div class="exp-date">Nov 2023 – Feb 2024</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built ML evaluation workflows across 4+ classification models, improving validation consistency for enterprise analytics experiments.</li>
+          <li>Engineered feature pipelines from structured datasets, reducing missing/inconsistent fields from 16.8% to 5.1%.</li>
+          <li>Evaluated model performance using accuracy, precision, recall, F1, and confusion matrices across 3+ business use cases.</li>
+          <li>Documented experiment results, feature logic, and model limitations, improving research handoff clarity.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div>
+            <div class="exp-role">Web Development Intern</div>
+            <div class="exp-org">The Sparks Foundation — Bangalore, India</div>
+          </div>
+          <div class="exp-date">Feb 2023 – Mar 2023</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built a full-stack bank transaction application using HTML, CSS, JavaScript, PHP, and SQL.</li>
+          <li>Designed normalized database schemas enforcing transaction integrity and zero data inconsistency across users.</li>
+          <li>Implemented session-based authentication and role-based access control to secure user accounts.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="label">projects</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-top">
+          <span class="project-name">Resume &amp; Job Match Analyzer</span>
+        </div>
+        <div class="project-stack">Python · PyTorch · Sentence Transformers · scikit-learn · Pandas · Streamlit</div>
+        <ul class="project-bullets">
+          <li>Built NLP matching system comparing 180+ job postings against resumes using embeddings, skill extraction, and similarity scoring.</li>
+          <li>Trained PyTorch classifier ranking resume-job fit, improving relevant match precision by 29.4% across reviewed cases.</li>
+          <li>Evaluated embedding outputs across 120+ resume-job pairs, tracking false matches, missing skills, and similarity gaps.</li>
+          <li>Deployed Streamlit dashboard showing match score, extracted skills, keyword gaps, and model explanations.</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">NLP</span>
+          <span class="project-tag">PyTorch</span>
+          <span class="project-tag">Embeddings</span>
+          <span class="project-tag">Streamlit</span>
+          <span class="project-tag">scikit-learn</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <span class="project-name">Course Recommendation Graph</span>
+        </div>
+        <div class="project-stack">Python · PyTorch Geometric · NetworkX · scikit-learn · Pandas · Streamlit</div>
+        <ul class="project-bullets">
+          <li>Designed graph dataset connecting 300+ courses, skills, prerequisites, and career paths for personalized academic recommendations.</li>
+          <li>Trained graph neural network using PyTorch Geometric, improving recommendation relevance by 24.7% over keyword matching.</li>
+          <li>Engineered node features from course descriptions, skill tags, difficulty levels, and prerequisite relationships.</li>
+          <li>Deployed Streamlit interface visualizing course paths, skill gaps, prerequisite chains, and ranked recommendations.</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">GNN</span>
+          <span class="project-tag">PyTorch Geometric</span>
+          <span class="project-tag">NetworkX</span>
+          <span class="project-tag">Graph ML</span>
+          <span class="project-tag">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top">
+          <span class="project-name">Multimodal Study Notes Assistant</span>
+        </div>
+        <div class="project-stack">Python · PyTorch · Whisper · OCR · FAISS · Sentence Transformers · Streamlit</div>
+        <ul class="project-bullets">
+          <li>Built multimodal study assistant processing 80+ PDFs, screenshots, and audio notes into searchable study summaries.</li>
+          <li>Integrated OCR, speech-to-text, embeddings, and FAISS retrieval, improving answer relevance from 62.5% to 84.1%.</li>
+          <li>Evaluated retrieval quality across 120+ student questions, measuring precision, hallucinations, and citation coverage.</li>
+          <li>Deployed Streamlit interface enabling file upload, semantic search, summary review, and quiz generation.</li>
+        </ul>
+        <div class="project-tags">
+          <span class="project-tag">RAG</span>
+          <span class="project-tag">FAISS</span>
+          <span class="project-tag">Whisper</span>
+          <span class="project-tag">OCR</span>
+          <span class="project-tag">Multimodal</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RESUME -->
+  <section id="resume">
+    <p class="label">resume</p>
+
+    <div class="resume-block">
+      <h3>education</h3>
+      <div class="resume-item">
+        <div>
+          <div class="role">Binghamton University, SUNY</div>
+          <div class="org">M.S. Information Systems — Watson College of Engineering</div>
+          <div class="gpa">GPA 3.43 / 4.00</div>
+        </div>
+        <div class="date">Expected May 2026</div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Vellore Institute of Technology, Bangalore</div>
+          <div class="org">PG Certificate in Data Science</div>
+          <div class="gpa">GPA 3.42 / 4.00</div>
+        </div>
+        <div class="date">June 2024</div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Lowry Adventist College, Bangalore North University</div>
+          <div class="org">Bachelor in Computer Application</div>
+          <div class="gpa">GPA 3.22 / 4.00</div>
+        </div>
+        <div class="date">May 2023</div>
+      </div>
+    </div>
+
+    <div class="resume-block">
+      <h3>experience</h3>
+      <div class="resume-item">
+        <div>
+          <div class="role">Research Project Assistant</div>
+          <div class="org">The Research Foundation for SUNY</div>
+        </div>
+        <div class="date">May 2025 – Present</div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Machine Learning Intern</div>
+          <div class="org">Dynox Global</div>
+        </div>
+        <div class="date">Nov 2023 – Feb 2024</div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Web Development Intern</div>
+          <div class="org">The Sparks Foundation</div>
+        </div>
+        <div class="date">Feb – Mar 2023</div>
+      </div>
+    </div>
+
+    <div class="resume-block">
+      <h3>skills</h3>
+      <div class="resume-item">
+        <div>
+          <div class="role">Languages</div>
+          <div class="org">Python, SQL, Java, C++, C</div>
+        </div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">AI &amp; ML</div>
+          <div class="org">PyTorch, TensorFlow, scikit-learn, Hugging Face, FAISS, Whisper, OCR, Claude API, OpenAI API</div>
+        </div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Data Science</div>
+          <div class="org">Pandas, NumPy, Feature Engineering, Model Evaluation, Statistical Analysis, Predictive Modeling</div>
+        </div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Backend &amp; Databases</div>
+          <div class="org">PostgreSQL, SQLite, FastAPI, Flask, REST APIs</div>
+        </div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Tools</div>
+          <div class="org">Streamlit, Power BI, Tableau, Docker, Git, GitHub, Jupyter, VS Code</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resume-block">
+      <h3>involvement</h3>
+      <div class="resume-item">
+        <div>
+          <div class="role">Binghamton University Volunteer</div>
+          <div class="org">Community outreach initiatives</div>
+        </div>
+        <div class="date">Sept 2024 – Present</div>
+      </div>
+      <div class="resume-item">
+        <div>
+          <div class="role">Speak-Up World Foundation Volunteer</div>
+          <div class="org">Tech-driven campaigns for human rights and education</div>
+        </div>
+        <div class="date">Jan – Mar 2023</div>
+      </div>
+    </div>
+
+    <div class="resume-dl">
+      <a class="btn primary" href="mailto:cchelladurai@binghamton.edu">request resume →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 Cerin Rose Chelladurai</span>
+    <a href="mailto:cchelladurai@binghamton.edu">cchelladurai@binghamton.edu</a>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const menu   = document.querySelector('#nav-menu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+</body>
+</html>
