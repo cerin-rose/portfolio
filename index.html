@@ -326,6 +326,15 @@
       color: var(--muted);
       letter-spacing: 0.04em;
     }
+    .project-video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin: 1.2rem 0 1rem;
+      border: 1px solid #222;
+      background: #050505;
+      object-fit: contain;
+    }
 
     /* ── RESUME ── */
     #resume { min-height: auto; padding-bottom: 6rem; }
@@ -609,6 +618,31 @@
   <section id="projects">
     <p class="label">projects</p>
     <div class="projects-grid">
+
+      <!-- Added from the attached product screen recording -->
+      <div class="project-card">
+        <div class="project-top">
+          <span class="project-name">Email Classification Workspace</span>
+        </div>
+        <div class="project-stack">Python · LLM Routing · Gmail · FastAPI · Streamlit</div>
+        <ul class="project-bullets">
+          <li>Built a focused workspace for classifying incoming email into Support, Sales, Billing, Spam, Calendar, Newsletter, Personal, and Unclear routes.</li>
+          <li>Added sample-email shortcuts plus sender, subject, and message-body inputs for repeatable classification testing.</li>
+          <li>Surfaced confidence scores, route probabilities, latency, estimated cost, category counts, and raw JSON output for each request.</li>
+          <li>Introduced human-review states for messages that need approval before an automated route or action is trusted.</li>
+        </ul>
+        <video class="project-video" controls preload="metadata" playsinline>
+          <source src="email-classification-demo.mp4" type="video/mp4" />
+          Your browser does not support the embedded video.
+        </video>
+        <div class="project-tags">
+          <span class="project-tag">Email Classification</span>
+          <span class="project-tag">LLM</span>
+          <span class="project-tag">Human Review</span>
+          <span class="project-tag">FastAPI</span>
+          <span class="project-tag">Streamlit</span>
+        </div>
+      </div>
 
       <div class="project-card">
         <div class="project-top">
