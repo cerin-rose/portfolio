@@ -301,12 +301,6 @@
     }
     .project-name { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
     .project-stack { font-size: 11px; color: var(--muted); margin-bottom: 0.8rem; }
-    .project-description {
-      font-size: 12px;
-      color: #aaa;
-      line-height: 1.75;
-      margin-bottom: 0.8rem;
-    }
 
     .project-bullets { list-style: none; margin-bottom: 1rem; }
     .project-bullets li {
@@ -630,10 +624,9 @@
         <div class="project-top">
           <span class="project-name">Email Classification Workspace</span>
         </div>
-        <div class="project-stack">Python · JEV wrapper · LLM Routing · Gmail · FastAPI · Streamlit</div>
-        <p class="project-description">JEV wraps the email-classification workflow, connecting the input form, LLM routing, observability metrics, raw JSON output, and human-review states in one workspace.</p>
+        <div class="project-stack">Python · LLM Routing · Gmail · FastAPI · Streamlit</div>
         <ul class="project-bullets">
-          <li>Built a JEV wrapper around a focused workspace for classifying incoming email into Support, Sales, Billing, Spam, Calendar, Newsletter, Personal, and Unclear routes.</li>
+          <li>Built a focused workspace with a JEV wrapper for classifying incoming email into Support, Sales, Billing, Spam, Calendar, Newsletter, Personal, and Unclear routes.</li>
           <li>Added sample-email shortcuts plus sender, subject, and message-body inputs for repeatable classification testing.</li>
           <li>Surfaced confidence scores, route probabilities, latency, estimated cost, category counts, and raw JSON output for each request.</li>
           <li>Introduced human-review states for messages that need approval before an automated route or action is trusted.</li>
